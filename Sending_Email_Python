@@ -1,0 +1,27 @@
+'''
+Note: This program is to send an email via gmail using python.
+It is important to first go to settings of your gmail account and turn on two factor authentication.
+From there you can generate "app password". You will need this after running below program.
+'''
+
+
+import smtplib
+smtp_object = smtplib.SMTP('smtp.gmail.com', 587)
+smtp_object.ehlo()
+
+smtp_object.starttls()
+
+import getpass
+email = getpass.getpass('Email Please: ')
+password = getpass.getpass('Password Please: ')
+smtp_object.login(email, password)
+
+from_address = email
+to_address = email
+subject = input("enter the subject line: ")
+message = input("enter the body message: ")
+msg = "Subject: "+subject+'\n'+message
+
+smtp_object.sendmail(from_address, to_address, msg)
+
+smtp_object.quit()
